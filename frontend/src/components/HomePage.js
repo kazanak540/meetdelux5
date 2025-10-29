@@ -68,6 +68,14 @@ const HomePage = () => {
   const [banners, setBanners] = useState(defaultBanners);
   const [currentBanner, setCurrentBanner] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [selectedRoomType, setSelectedRoomType] = useState('seminar');
+  const [searchParams, setSearchParams] = useState({
+    city: '',
+    startDate: '',
+    endDate: '',
+    capacity: '',
+    roomType: 'seminar'
+  });
   const navigate = useNavigate();
 
   useEffect(() => {
