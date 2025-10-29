@@ -225,18 +225,7 @@ const HomePage = () => {
     navigate(`/rooms?${params.toString()}`);
   };
 
-  const trackAdView = async (ad) => {
-    try {
-      await axios.post(`${API}/advertisements/${ad.id}/view`, {
-        ad_id: ad.id,
-        clicked: false
-      });
-    } catch (error) {
-      console.error('Ad view tracking error:', error);
-    }
-  };
-
-  const handleSearch = (e) => {
+  const handleQuickSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
       navigate(`/rooms?city=${encodeURIComponent(searchQuery)}`);
