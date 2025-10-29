@@ -302,10 +302,3 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
-        </Card>
-      </div>
-    </div>
-  );
-};
-
-export default RegisterPage;
