@@ -8,6 +8,7 @@ import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { X, Building2, MapPin, Mail, Phone, Globe, Star, CheckCircle2 } from 'lucide-react';
 import ImageUpload from './ImageUpload';
+import GooglePlacesAutocomplete from './GooglePlacesAutocomplete';
 import { toast } from 'sonner';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
