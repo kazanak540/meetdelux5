@@ -83,6 +83,22 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
     }));
   };
 
+  const handlePlaceSelected = (place) => {
+    if (place) {
+      setFormData(prev => ({
+        ...prev,
+        name: place.name || '',
+        address: place.formatted_address || '',
+        city: place.city || '',
+        phone: place.phone || '',
+        website: place.website || '',
+        latitude: place.geometry?.location?.lat()?.toString() || '',
+        longitude: place.geometry?.location?.lng()?.toString() || ''
+      }));
+      setPlaceSelected(true);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
