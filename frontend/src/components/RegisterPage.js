@@ -5,7 +5,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { User, Mail, Lock, Phone, Eye, EyeOff, Shield } from 'lucide-react';
+import { User, Mail, Lock, Phone, Eye, EyeOff, Shield, Building2 } from 'lucide-react';
 import { toast } from 'sonner';
 
 const RegisterPage = () => {
