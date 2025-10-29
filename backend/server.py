@@ -40,8 +40,9 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Stripe Settings
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
+APP_URL = os.environ.get('APP_URL', 'http://localhost:3000')
 if not STRIPE_API_KEY:
-    logger.warning("STRIPE_API_KEY not found in environment variables")
+    logger.warning("STRIPE_API_KEY not found in environment variables - Payment features will be limited")
 
 # Create the main app
 app = FastAPI(title="MeetDelux - Lüks Seminer Salonu Rezervasyon API", version="1.0.0")
