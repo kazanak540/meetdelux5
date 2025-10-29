@@ -1470,8 +1470,8 @@ async def upload_hotel_image(
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
         
-        # Create public URL
-        image_url = f"https://hotel-meetings.preview.emergentagent.com/api/images/hotels/{unique_filename}"
+        # Create public URL using environment variable
+        image_url = f"{APP_URL}/api/images/hotels/{unique_filename}"
         
         # Update hotel images array
         await db.hotels.update_one(
