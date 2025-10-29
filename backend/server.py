@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 import jwt
 import bcrypt
 from enum import Enum
-# from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
+from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
 import httpx
 import asyncio
 from decimal import Decimal, ROUND_HALF_UP
