@@ -499,17 +499,6 @@ const HomePage = () => {
 
         </div>
       </section>
-                    <span className="text-green-600">✅</span>
-                    <span>En İyi Fiyat Garantisi</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-green-600">✅</span>
-                    <span>9 Taksit İmkanı</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           {/* Quick Stats - Conversion Boosters */}
           <div className="mt-8 text-center">
