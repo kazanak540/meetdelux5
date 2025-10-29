@@ -486,9 +486,6 @@ const HomePage = () => {
             </div>
           </div>
 
-        </div>
-      </section>
-
           {/* Quick Stats - Conversion Boosters */}
           <div className="mt-8 text-center">
             <div className="flex flex-wrap justify-center gap-8 text-sm">
@@ -510,6 +507,7 @@ const HomePage = () => {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
