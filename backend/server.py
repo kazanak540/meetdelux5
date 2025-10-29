@@ -1381,9 +1381,8 @@ async def stripe_webhook(request: Request):
         if not stripe_signature:
             raise HTTPException(status_code=400, detail="Missing Stripe signature")
         
-        # Initialize Stripe checkout
-        host_url = "https://hotel-meetings.preview.emergentagent.com"
-        webhook_url = f"{host_url}/api/webhook/stripe"
+        # Initialize Stripe checkout with APP_URL from environment
+        webhook_url = f"{APP_URL}/api/webhook/stripe"
         stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
         
         # Handle webhook
