@@ -482,6 +482,89 @@ const HomePage = () => {
                     Ankara
                   </button>
                 </div>
+
+                {/* Advanced Options - Collapsible */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="mb-4">
+                    <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center">
+                      <span className="mr-2">🔧</span>
+                      Gelişmiş Seçenekler
+                    </h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">📽️ Projeksiyon</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🎵 Ses Sistemi</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">☕ Catering</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🚗 Transfer</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🌐 Wi-Fi</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🅿️ Otopark</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">❄️ Klima</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🎬 Video Konferans</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">📊 Whiteboard</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🎤 Mikrofon</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">💡 Sahne Işıkları</span>
+                    </label>
+                    <label className="flex items-center space-x-2 cursor-pointer group">
+                      <input type="checkbox" className="rounded text-indigo-600 focus:ring-indigo-500" />
+                      <span className="text-sm text-gray-600 group-hover:text-indigo-600 transition-colors">🎭 Sahne</span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 text-sm">
+                    <div className="flex items-center space-x-2 text-gray-700">
+                      <span className="text-green-600 text-lg">✅</span>
+                      <span className="font-medium">Ücretsiz İptal</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-gray-700">
+                      <span className="text-green-600 text-lg">✅</span>
+                      <span className="font-medium">Anında Onay</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-gray-700">
+                      <span className="text-green-600 text-lg">✅</span>
+                      <span className="font-medium">En İyi Fiyat Garantisi</span>
+                    </div>
+                    <div className="flex items-center space-x-2 text-gray-700">
+                      <span className="text-green-600 text-lg">✅</span>
+                      <span className="font-medium">9 Taksit İmkanı</span>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
