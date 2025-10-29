@@ -5,6 +5,7 @@ import './App.css';
 
 // Components
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
@@ -17,6 +18,7 @@ import BookingForm from './components/BookingForm';
 import BookingList from './components/BookingList';
 import PaymentPage from './components/PaymentPage';
 import AdminApprovalPanel from './components/AdminApprovalPanel';
+import ContactPage from './components/ContactPage';
 import { Toaster } from 'sonner';
 import { CurrencyProvider } from './hooks/useCurrency';
 
