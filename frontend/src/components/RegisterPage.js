@@ -84,38 +84,41 @@ const RegisterPage = () => {
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-indigo-100">
+      <div className="max-w-2xl w-full">
         {/* Header */}
-        <div className="text-center">
-          <div className="flex justify-center">
-            <Building2 className="h-12 w-12 text-indigo-600" />
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_turkce-translator-4/artifacts/jua4tf7e_IMG_0255.png" 
+              alt="MeetDelux Logo" 
+              className="h-12 w-12 object-contain"
+            />
+            <h1 className="text-3xl font-bold text-gray-900">
+              Meet<span className="text-indigo-600">Delux</span>
+            </h1>
           </div>
-          <h2 data-testid="register-title" className="mt-6 text-3xl font-extrabold text-gray-900">
-            Hesabınızı oluşturun
+          <h2 data-testid="register-title" className="text-2xl font-bold text-gray-900 mb-2">
+            Hesabınızı Oluşturun
           </h2>
-          <p className="mt-2 text-sm text-gray-600">
+          <p className="text-gray-600">
             Zaten hesabınız var mı?{' '}
-            <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <Link to="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
               Giriş yapın
             </Link>
           </p>
         </div>
 
-        {/* Register Form */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-lg">Kişisel Bilgiler</CardTitle>
-            <CardDescription>
-              Hesabınızı oluşturmak için aşağıdaki bilgileri doldurun
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Register Form Card */}
+        <div className="bg-white rounded-2xl shadow-xl p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Full Name */}
               <div>
-                <Label htmlFor="full_name">Ad Soyad</Label>
-                <div className="relative mt-1">
+                <Label htmlFor="full_name" className="text-gray-700 font-medium mb-2 block">
+                  Ad Soyad *
+                </Label>
+                <div className="relative">
                   <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
                     data-testid="full-name-input"
@@ -125,7 +128,7 @@ const RegisterPage = () => {
                     required
                     value={formData.full_name}
                     onChange={handleChange}
-                    className="pl-10"
+                    className="pl-10 h-11"
                     placeholder="Adınız ve soyadınız"
                   />
                 </div>
@@ -133,8 +136,10 @@ const RegisterPage = () => {
 
               {/* Email */}
               <div>
-                <Label htmlFor="email">E-posta Adresi</Label>
-                <div className="relative mt-1">
+                <Label htmlFor="email" className="text-gray-700 font-medium mb-2 block">
+                  E-posta Adresi *
+                </Label>
+                <div className="relative">
                   <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
                     data-testid="email-input"
@@ -145,9 +150,11 @@ const RegisterPage = () => {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="pl-10"
+                    className="pl-10 h-11"
                     placeholder="ornek@email.com"
                   />
+                </div>
+              </div>
                 </div>
               </div>
 
