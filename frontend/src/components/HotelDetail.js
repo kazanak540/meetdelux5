@@ -221,9 +221,17 @@ const HotelDetail = () => {
                           </div>
                           <div className="text-right">
                             <div className="text-2xl font-bold text-indigo-600">
-                              ₺{room.price_per_day.toLocaleString()}
+                              {formatPrice(
+                                room.pricing_info ? room.pricing_info.display_price : room.price_per_day,
+                                room.pricing_info ? room.pricing_info.display_currency : (room.currency || 'EUR')
+                              )}
                             </div>
                             <div className="text-sm text-gray-500">günlük</div>
+                            {room.pricing_info && room.pricing_info.display_currency !== room.currency && (
+                              <div className="text-xs text-gray-400 mt-1">
+                                ~€{room.price_per_day.toLocaleString()}
+                              </div>
+                            )}
                           </div>
                         </div>
                         
