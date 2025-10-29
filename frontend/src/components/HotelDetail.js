@@ -6,6 +6,7 @@ import { Card, CardContent } from './ui/card';
 import { MapPin, Star, Phone, Mail, Globe, Users, Wifi, Car, Utensils, Dumbbell, Coffee, Building2, Monitor, Volume2, Snowflake } from 'lucide-react';
 import GoogleMap from './GoogleMap';
 import { toast } from 'sonner';
+import useCurrency from '../hooks/useCurrency';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -13,6 +14,7 @@ const API = `${BACKEND_URL}/api`;
 const HotelDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { formatPrice, currency } = useCurrency();
   const [hotel, setHotel] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [services, setServices] = useState([]);
