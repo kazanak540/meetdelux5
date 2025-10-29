@@ -155,8 +155,6 @@ const RegisterPage = () => {
                   />
                 </div>
               </div>
-                </div>
-              </div>
 
               {/* Phone */}
               <div>
