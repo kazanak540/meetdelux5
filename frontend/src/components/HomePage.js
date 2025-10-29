@@ -496,78 +496,9 @@ const HomePage = () => {
               </form>
             </div>
           </div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      👥 Katılımcı Sayısı
-                    </label>
-                    <select className="w-full py-3 px-4 text-gray-700 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-0">
-                      <option>5-10 kişi</option>
-                      <option>10-25 kişi</option>
-                      <option>25-50 kişi</option>
-                      <option>50-100 kişi</option>
-                      <option>100-250 kişi</option>
-                      <option>250+ kişi</option>
-                    </select>
-                  </div>
-                </div>
 
-                {/* Advanced Options - Collapsible */}
-                <div className="border-t pt-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium text-gray-600">🔧 Gelişmiş Seçenekler</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                      <label className="flex items-center space-x-2">
-                        <input type="checkbox" className="rounded text-blue-600" />
-                        <span className="text-sm text-gray-600">📽️ Projeksiyon</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label className="flex items-center space-x-2">
-                        <input type="checkbox" className="rounded text-blue-600" />
-                        <span className="text-sm text-gray-600">🎵 Ses Sistemi</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label className="flex items-center space-x-2">
-                        <input type="checkbox" className="rounded text-blue-600" />
-                        <span className="text-sm text-gray-600">☕ Catering</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label className="flex items-center space-x-2">
-                        <input type="checkbox" className="rounded text-blue-600" />
-                        <span className="text-sm text-gray-600">🚗 Transfer</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Search Button - Tatilsepeti Orange */}
-                <div className="flex justify-center pt-4">
-                  <Button 
-                    type="submit"
-                    size="lg"
-                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-12 text-lg rounded-xl shadow-lg transform hover:scale-105 transition-all duration-200"
-                  >
-                    🔍 Seminer Salonu Ara
-                  </Button>
-                </div>
-              </form>
-
-              {/* Trust Indicators */}
-              <div className="mt-6 pt-6 border-t border-gray-200">
-                <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-green-600">✅</span>
-                    <span>Ücretsiz İptal</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-green-600">✅</span>
-                    <span>Anında Onay</span>
-                  </div>
-                  <div className="flex items-center space-x-2">
+        </div>
+      </section>
                     <span className="text-green-600">✅</span>
                     <span>En İyi Fiyat Garantisi</span>
                   </div>
