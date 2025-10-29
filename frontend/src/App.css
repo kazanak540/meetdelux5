@@ -1,34 +1,234 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide Emergent Badge */
+[data-testid="emergent-badge"],
+a[href*="emergent"],
+div[class*="emergent"],
+.emergent-badge,
+button[aria-label*="Emergent"],
+div:has(> a[href*="emergentagent.com"]):not(:has(img)) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-.App-link {
-    color: #61dafb;
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.animate-slideInRight {
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* Custom gradients */
+.gradient-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Custom shadows */
+.shadow-hotel-card {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.shadow-feature {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: all 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Button styles */
+.btn-primary {
+  @apply bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200;
+}
+
+.btn-secondary {
+  @apply bg-white text-indigo-600 border-2 border-indigo-600 hover:bg-indigo-600 hover:text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200;
+}
+
+/* Form styles */
+.form-input {
+  @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors duration-200;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-2;
+}
+
+/* Card styles */
+.hotel-card {
+  @apply bg-white rounded-xl shadow-hotel-card hover-lift overflow-hidden;
+}
+
+.room-card {
+  @apply bg-white rounded-lg shadow-feature hover:shadow-lg transition-shadow duration-300;
+}
+
+/* Feature badge */
+.feature-badge {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.feature-badge-blue {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.feature-badge-green {
+  @apply bg-green-100 text-green-800;
+}
+
+.feature-badge-purple {
+  @apply bg-purple-100 text-purple-800;
+}
+
+.feature-badge-orange {
+  @apply bg-orange-100 text-orange-800;
+}
+
+/* Rating stars */
+.star-rating {
+  @apply flex items-center space-x-1;
+}
+
+.star {
+  @apply w-5 h-5;
+}
+
+.star-filled {
+  @apply text-yellow-400;
+}
+
+.star-empty {
+  @apply text-gray-300;
+}
+
+/* Loading animation */
+.loading-shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive typography */
+.text-hero {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+}
+
+.text-section {
+  @apply text-2xl md:text-3xl lg:text-4xl font-bold;
+}
+
+.text-card-title {
+  @apply text-lg md:text-xl font-semibold;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Search bar styles */
+.search-container {
+  @apply relative;
+}
+
+.search-input {
+  @apply w-full pl-12 pr-4 py-4 text-lg border-2 border-gray-200 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white shadow-lg transition-all duration-200;
+}
+
+.search-icon {
+  @apply absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400;
+}
+
+/* Filter sidebar */
+.filter-sidebar {
+  @apply bg-white rounded-lg shadow-lg p-6 h-fit sticky top-4;
+}
+
+/* Price display */
+.price-display {
+  @apply text-2xl font-bold text-indigo-600;
+}
+
+.price-unit {
+  @apply text-sm text-gray-500 font-normal;
+}
+
+/* Status badges */
+.status-available {
+  @apply bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.status-unavailable {
+  @apply bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium;
+}
+
+.status-pending {
+  @apply bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium;
 }
