@@ -263,7 +263,7 @@ const RegisterPage = () => {
                 </div>
 
               {/* Phone */}
-              <div>
+              <div className="md:col-span-2">
                 <Label htmlFor="phone" className="text-gray-700 font-medium mb-2 block">
                   Telefon Numarası
                 </Label>
@@ -276,34 +276,12 @@ const RegisterPage = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="pl-10 h-11"
+                    className="pl-10 h-12 border-gray-300 focus:border-indigo-500"
                     placeholder="+90 5XX XXX XX XX"
                   />
                 </div>
               </div>
 
-              {/* Role Selection */}
-              <div>
-                <Label className="text-gray-700 font-medium mb-2 block">Hesap Türü *</Label>
-                <Select value={formData.role} onValueChange={handleRoleChange}>
-                  <SelectTrigger data-testid="role-select" className="h-11">
-                    <SelectValue placeholder="Hesap türünüzü seçin" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {roleOptions.map((option) => (
-                      <SelectItem key={option.value} value={option.value}>
-                        <div>
-                          <div className="font-medium">{option.label}</div>
-                          <div className="text-xs text-gray-500">{option.description}</div>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Password */}
               <div>
                 <Label htmlFor="password" className="text-gray-700 font-medium mb-2 block">
@@ -320,13 +298,13 @@ const RegisterPage = () => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="pl-10 pr-12 h-11"
+                    className="pl-10 pr-12 h-12 border-gray-300 focus:border-indigo-500"
                     placeholder="En az 6 karakter"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
@@ -349,13 +327,13 @@ const RegisterPage = () => {
                     required
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="pl-10 pr-12 h-11"
+                    className="pl-10 pr-12 h-12 border-gray-300 focus:border-indigo-500"
                     placeholder="Şifrenizi tekrar girin"
                   />
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
@@ -368,7 +346,7 @@ const RegisterPage = () => {
               data-testid="register-submit-button"
               type="submit"
               disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 text-base rounded-lg shadow-lg hover:shadow-xl transition-all mt-8"
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 text-base rounded-lg shadow-lg hover:shadow-xl transition-all"
             >
               {loading ? (
                 <div className="flex items-center justify-center">
@@ -403,6 +381,7 @@ const RegisterPage = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
