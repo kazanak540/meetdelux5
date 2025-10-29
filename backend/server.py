@@ -17,6 +17,9 @@ from emergentintegrations.payments.stripe.checkout import StripeCheckout, Checko
 import httpx
 import asyncio
 from decimal import Decimal, ROUND_HALF_UP
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Configure logging first
 logging.basicConfig(
