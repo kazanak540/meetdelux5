@@ -17,6 +17,7 @@ const API = `${BACKEND_URL}/api`;
 const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [placeSelected, setPlaceSelected] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
