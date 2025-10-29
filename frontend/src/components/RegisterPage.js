@@ -160,8 +160,10 @@ const RegisterPage = () => {
 
               {/* Phone */}
               <div>
-                <Label htmlFor="phone">Telefon Numarası</Label>
-                <div className="relative mt-1">
+                <Label htmlFor="phone" className="text-gray-700 font-medium mb-2 block">
+                  Telefon Numarası
+                </Label>
+                <div className="relative">
                   <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
                     data-testid="phone-input"
@@ -170,7 +172,7 @@ const RegisterPage = () => {
                     type="tel"
                     value={formData.phone}
                     onChange={handleChange}
-                    className="pl-10"
+                    className="pl-10 h-11"
                     placeholder="+90 5XX XXX XX XX"
                   />
                 </div>
@@ -178,9 +180,9 @@ const RegisterPage = () => {
 
               {/* Role Selection */}
               <div>
-                <Label>Hesap Türü</Label>
+                <Label className="text-gray-700 font-medium mb-2 block">Hesap Türü *</Label>
                 <Select value={formData.role} onValueChange={handleRoleChange}>
-                  <SelectTrigger data-testid="role-select" className="mt-1">
+                  <SelectTrigger data-testid="role-select" className="h-11">
                     <SelectValue placeholder="Hesap türünüzü seçin" />
                   </SelectTrigger>
                   <SelectContent>
@@ -195,11 +197,15 @@ const RegisterPage = () => {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Password */}
               <div>
-                <Label htmlFor="password">Şifre</Label>
-                <div className="relative mt-1">
+                <Label htmlFor="password" className="text-gray-700 font-medium mb-2 block">
+                  Şifre *
+                </Label>
+                <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
                     data-testid="password-input"
@@ -210,7 +216,7 @@ const RegisterPage = () => {
                     required
                     value={formData.password}
                     onChange={handleChange}
-                    className="pl-10 pr-10"
+                    className="pl-10 pr-12 h-11"
                     placeholder="En az 6 karakter"
                   />
                   <button
@@ -225,8 +231,10 @@ const RegisterPage = () => {
 
               {/* Confirm Password */}
               <div>
-                <Label htmlFor="confirmPassword">Şifre Tekrarı</Label>
-                <div className="relative mt-1">
+                <Label htmlFor="confirmPassword" className="text-gray-700 font-medium mb-2 block">
+                  Şifre Tekrarı *
+                </Label>
+                <div className="relative">
                   <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
                     data-testid="confirm-password-input"
@@ -237,7 +245,7 @@ const RegisterPage = () => {
                     required
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    className="pl-10 pr-10"
+                    className="pl-10 pr-12 h-11"
                     placeholder="Şifrenizi tekrar girin"
                   />
                   <button
@@ -249,24 +257,53 @@ const RegisterPage = () => {
                   </button>
                 </div>
               </div>
+            </div>
 
-              <Button
-                data-testid="register-submit-button"
-                type="submit"
-                disabled={loading}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3"
-              >
-                {loading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Kayıt yapılıyor...
-                  </div>
-                ) : (
-                  'Hesap Oluştur'
-                )}
-              </Button>
-            </form>
-          </CardContent>
+            {/* Submit Button */}
+            <Button
+              data-testid="register-submit-button"
+              type="submit"
+              disabled={loading}
+              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold h-12 text-base rounded-lg shadow-lg hover:shadow-xl transition-all mt-8"
+            >
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  Kayıt yapılıyor...
+                </div>
+              ) : (
+                'Hesap Oluştur'
+              )}
+            </Button>
+          </form>
+
+          {/* Terms */}
+          <p className="text-xs text-gray-500 text-center mt-6">
+            Hesap oluşturarak{' '}
+            <Link to="/terms" className="text-indigo-600 hover:underline">
+              Kullanım Koşullarını
+            </Link>
+            {' '}ve{' '}
+            <Link to="/privacy" className="text-indigo-600 hover:underline">
+              Gizlilik Politikasını
+            </Link>
+            {' '}kabul etmiş olursunuz.
+          </p>
+        </div>
+
+        {/* Security Badge */}
+        <div className="text-center mt-6">
+          <div className="flex items-center justify-center space-x-2 text-sm text-gray-500">
+            <Shield className="h-4 w-4" />
+            <span>Bilgileriniz SSL ile korunmaktadır</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RegisterPage;
         </Card>
       </div>
     </div>
