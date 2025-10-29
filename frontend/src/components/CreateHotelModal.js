@@ -172,8 +172,10 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
         facilities: [],
         latitude: '',
         longitude: '',
-        images: []
+        images: [],
+        place_id: ''
       });
+      setPlaceSelected(false);
     } catch (error) {
       console.error('Hotel creation error:', error);
       toast.error(error.response?.data?.detail || 'Otel oluşturulurken hata oluştu');
