@@ -69,6 +69,28 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
         : [...prev.facilities, facility]
     }));
   };
+
+  const handlePlaceSelected = (placeData) => {
+    // Auto-fill form with Google Places data
+    setFormData(prev => ({
+      ...prev,
+      name: placeData.name || prev.name,
+      address: placeData.address || prev.address,
+      city: placeData.city || prev.city,
+      phone: placeData.phone || prev.phone,
+      website: placeData.website || prev.website,
+      latitude: placeData.latitude || prev.latitude,
+      longitude: placeData.longitude || prev.longitude,
+      place_id: placeData.place_id || prev.place_id
+    }));
+    
+    setPlaceSelected(true);
+    
+    toast.success('Otel bilgileri otomatik dolduruldu! ✨', {
+      description: 'Lütfen diğer bilgileri kontrol edin ve tamamlayın'
+    });
+  };
+
   const handleImageUploaded = (imageUrl) => {
     setFormData(prev => ({
       ...prev,
