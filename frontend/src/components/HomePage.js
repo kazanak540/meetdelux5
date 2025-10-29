@@ -177,6 +177,65 @@ const HomePage = () => {
     }
   };
 
+  const roomTypeOptions = [
+    { 
+      id: 'seminar', 
+      label: 'Seminer Salonu', 
+      icon: '🎓',
+      description: 'Eğitim ve seminerler için ideal'
+    },
+    { 
+      id: 'meeting', 
+      label: 'Toplantı Odası', 
+      icon: '💼',
+      description: 'İş görüşmeleri ve toplantılar'
+    },
+    { 
+      id: 'ballroom', 
+      label: 'Ballroom', 
+      icon: '✨',
+      description: 'Gala ve özel etkinlikler'
+    },
+    { 
+      id: 'conference', 
+      label: 'Konferans Salonu', 
+      icon: '🎤',
+      description: 'Büyük konferanslar'
+    }
+  ];
+
+  const handleRoomTypeChange = (typeId) => {
+    setSelectedRoomType(typeId);
+    setSearchParams({...searchParams, roomType: typeId});
+  };
+
+  const handleSearchParamChange = (field, value) => {
+    setSearchParams({...searchParams, [field]: value});
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    
+    // Build query params
+    const params = new URLSearchParams();
+    if (searchParams.city) params.append('city', searchParams.city);
+    if (searchParams.capacity) params.append('min_capacity', searchParams.capacity);
+    if (searchParams.roomType) params.append('room_type', searchParams.roomType);
+    
+    navigate(`/rooms?${params.toString()}`);
+  };
+
+  const trackAdView = async (ad) => {
+    try {
+      await axios.post(`${API}/advertisements/${ad.id}/view`, {
+        ad_id: ad.id,
+        clicked: false
+      });
+    } catch (error) {
+      console.error('Ad view tracking error:', error);
+    }
+  };
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
