@@ -354,67 +354,148 @@ const HomePage = () => {
             </p>
           </div>
 
-          {/* Main Search Form - Tatilsepeti Style */}
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-white rounded-2xl shadow-2xl p-6 md:p-8">
+          {/* Main Search Form - Modern & Interactive */}
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
               
-              {/* Service Tabs */}
-              <div className="flex flex-wrap justify-center mb-6 border-b border-gray-200">
-                <button className="px-6 py-3 text-blue-600 border-b-2 border-blue-600 font-semibold">
-                  Seminer Salonu
-                </button>
-                <button className="px-6 py-3 text-gray-500 hover:text-blue-600">
-                  Toplantı Odası
-                </button>
-                <button className="px-6 py-3 text-gray-500 hover:text-blue-600">
-                  Ballroom
-                </button>
+              {/* Room Type Tabs */}
+              <div className="flex flex-wrap bg-gray-50 border-b border-gray-200">
+                {roomTypeOptions.map((type) => (
+                  <button
+                    key={type.id}
+                    onClick={() => handleRoomTypeChange(type.id)}
+                    className={`flex-1 min-w-[150px] px-4 py-4 transition-all duration-200 ${
+                      selectedRoomType === type.id
+                        ? 'bg-white text-indigo-600 font-semibold border-b-3 border-indigo-600 shadow-sm'
+                        : 'text-gray-600 hover:bg-white hover:text-indigo-500'
+                    }`}
+                  >
+                    <div className="flex flex-col items-center space-y-1">
+                      <span className="text-2xl">{type.icon}</span>
+                      <span className="text-sm font-medium">{type.label}</span>
+                      <span className="text-xs text-gray-500 hidden md:block">{type.description}</span>
+                    </div>
+                  </button>
+                ))}
               </div>
 
-              <form onSubmit={handleSearch} className="space-y-4">
-                {/* Search Row */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <form onSubmit={handleSearch} className="p-6 md:p-8">
+                {/* Search Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-6">
                   
-                  {/* Location */}
-                  <div className="md:col-span-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      📍 Şehir / Otel / Salon
+                  {/* Location - Larger */}
+                  <div className="md:col-span-4">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                      <MapPin className="h-4 w-4 mr-1 text-indigo-600" />
+                      Şehir / Otel Adı
                     </label>
-                    <div className="relative">
-                      <Input
-                        type="text"
-                        placeholder="İstanbul, Ankara, İzmir..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full py-3 px-4 text-gray-700 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-0"
-                      />
-                    </div>
+                    <Input
+                      type="text"
+                      placeholder="İstanbul, Ankara, İzmir..."
+                      value={searchParams.city}
+                      onChange={(e) => handleSearchParamChange('city', e.target.value)}
+                      className="w-full h-12 px-4 text-gray-700 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                    />
                   </div>
 
                   {/* Start Date */}
-                  <div className="md:col-span-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      📅 Başlangıç Tarihi
+                  <div className="md:col-span-3">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                      <Calendar className="h-4 w-4 mr-1 text-indigo-600" />
+                      Başlangıç
                     </label>
                     <Input
                       type="date"
-                      className="w-full py-3 px-4 text-gray-700 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-0"
+                      value={searchParams.startDate}
+                      onChange={(e) => handleSearchParamChange('startDate', e.target.value)}
+                      className="w-full h-12 px-4 text-gray-700 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                     />
                   </div>
 
                   {/* End Date */}
-                  <div className="md:col-span-1">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      📅 Bitiş Tarihi
+                  <div className="md:col-span-3">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                      <Calendar className="h-4 w-4 mr-1 text-indigo-600" />
+                      Bitiş
                     </label>
                     <Input
                       type="date"
-                      className="w-full py-3 px-4 text-gray-700 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-0"
+                      value={searchParams.endDate}
+                      onChange={(e) => handleSearchParamChange('endDate', e.target.value)}
+                      className="w-full h-12 px-4 text-gray-700 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
                     />
                   </div>
 
-                  {/* Participants */}
-                  <div className="md:col-span-1">
+                  {/* Capacity */}
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center">
+                      <Users className="h-4 w-4 mr-1 text-indigo-600" />
+                      Kapasite
+                    </label>
+                    <Input
+                      type="number"
+                      placeholder="Kişi"
+                      value={searchParams.capacity}
+                      onChange={(e) => handleSearchParamChange('capacity', e.target.value)}
+                      min="1"
+                      className="w-full h-12 px-4 text-gray-700 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200"
+                    />
+                  </div>
+                </div>
+
+                {/* Search Button */}
+                <Button
+                  type="submit"
+                  className="w-full h-14 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                >
+                  <Search className="h-5 w-5 mr-2" />
+                  {selectedRoomType === 'seminar' && '🎓 Seminer Salonu Ara'}
+                  {selectedRoomType === 'meeting' && '💼 Toplantı Odası Ara'}
+                  {selectedRoomType === 'ballroom' && '✨ Ballroom Ara'}
+                  {selectedRoomType === 'conference' && '🎤 Konferans Salonu Ara'}
+                </Button>
+
+                {/* Quick Tips */}
+                <div className="mt-4 flex flex-wrap gap-2 justify-center">
+                  <button
+                    type="button"
+                    onClick={() => handleSearchParamChange('capacity', '50')}
+                    className="px-4 py-2 bg-gray-100 hover:bg-indigo-50 text-gray-700 hover:text-indigo-600 text-sm rounded-full transition-colors"
+                  >
+                    50 Kişilik
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSearchParamChange('capacity', '100')}
+                    className="px-4 py-2 bg-gray-100 hover:bg-indigo-50 text-gray-700 hover:text-indigo-600 text-sm rounded-full transition-colors"
+                  >
+                    100 Kişilik
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSearchParamChange('capacity', '200')}
+                    className="px-4 py-2 bg-gray-100 hover:bg-indigo-50 text-gray-700 hover:text-indigo-600 text-sm rounded-full transition-colors"
+                  >
+                    200+ Kişilik
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSearchParamChange('city', 'İstanbul')}
+                    className="px-4 py-2 bg-gray-100 hover:bg-indigo-50 text-gray-700 hover:text-indigo-600 text-sm rounded-full transition-colors"
+                  >
+                    İstanbul
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleSearchParamChange('city', 'Ankara')}
+                    className="px-4 py-2 bg-gray-100 hover:bg-indigo-50 text-gray-700 hover:text-indigo-600 text-sm rounded-full transition-colors"
+                  >
+                    Ankara
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       👥 Katılımcı Sayısı
                     </label>
