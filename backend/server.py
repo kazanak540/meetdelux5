@@ -413,6 +413,181 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+# Email Utility Functions
+async def send_email(to_email: str, subject: str, html_content: str, text_content: str = None):
+    """Send email using SMTP"""
+    if not all([SMTP_HOST, SMTP_USER, SMTP_PASSWORD]):
+        logger.warning("SMTP not configured - Email not sent")
+        return False
+    
+    try:
+        # Create message
+        msg = MIMEMultipart('alternative')
+        msg['From'] = f"{SMTP_FROM_NAME} <{SMTP_FROM_EMAIL}>"
+        msg['To'] = to_email
+        msg['Subject'] = subject
+        
+        # Add text and HTML parts
+        if text_content:
+            part1 = MIMEText(text_content, 'plain', 'utf-8')
+            msg.attach(part1)
+        
+        part2 = MIMEText(html_content, 'html', 'utf-8')
+        msg.attach(part2)
+        
+        # Send email
+        with smtplib.SMTP(SMTP_HOST, SMTP_PORT) as server:
+            server.starttls()
+            server.login(SMTP_USER, SMTP_PASSWORD)
+            server.send_message(msg)
+        
+        logger.info(f"Email sent successfully to {to_email}")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Failed to send email to {to_email}: {str(e)}")
+        return False
+
+def generate_booking_confirmation_email(booking: dict, room: dict, hotel: dict, user: dict) -> tuple:
+    """Generate booking confirmation email HTML and text"""
+    
+    # Format dates
+    check_in = booking.get('check_in_date', 'N/A')
+    check_out = booking.get('check_out_date', 'N/A')
+    
+    # Calculate total
+    total_price = booking.get('total_price', 0)
+    currency = booking.get('currency', 'TRY')
+    currency_symbols = {'TRY': '₺', 'EUR': '€', 'USD': '$'}
+    symbol = currency_symbols.get(currency, currency)
+    
+    # HTML Email
+    html = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            body {{ font-family: Arial, sans-serif; line-height: 1.6; color: #333; }}
+            .container {{ max-width: 600px; margin: 0 auto; padding: 20px; }}
+            .header {{ background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }}
+            .content {{ background: #f9f9f9; padding: 30px; }}
+            .booking-details {{ background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }}
+            .detail-row {{ display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }}
+            .detail-label {{ font-weight: bold; color: #667eea; }}
+            .total {{ background: #667eea; color: white; padding: 15px; border-radius: 8px; margin-top: 20px; text-align: center; font-size: 20px; font-weight: bold; }}
+            .footer {{ background: #333; color: white; padding: 20px; text-align: center; border-radius: 0 0 10px 10px; }}
+            .button {{ background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 20px 0; }}
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>🎉 Rezervasyon Onayı</h1>
+                <p>Rezervasyonunuz başarıyla oluşturuldu!</p>
+            </div>
+            
+            <div class="content">
+                <p>Sayın <strong>{user.get('full_name', 'Müşteri')}</strong>,</p>
+                <p>MeetDelux üzerinden yaptığınız rezervasyon başarıyla oluşturulmuştur. Rezervasyon detaylarınız aşağıdadır:</p>
+                
+                <div class="booking-details">
+                    <h3 style="color: #667eea; margin-top: 0;">📋 Rezervasyon Bilgileri</h3>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">Rezervasyon No:</span>
+                        <span>{booking.get('id', 'N/A')[:8].upper()}</span>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">🏨 Otel:</span>
+                        <span>{hotel.get('name', 'N/A')}</span>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">🎓 Salon:</span>
+                        <span>{room.get('name', 'N/A')}</span>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">📅 Giriş Tarihi:</span>
+                        <span>{check_in}</span>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">📅 Çıkış Tarihi:</span>
+                        <span>{check_out}</span>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">👥 Katılımcı:</span>
+                        <span>{booking.get('number_of_guests', 'N/A')} Kişi</span>
+                    </div>
+                    
+                    <div class="detail-row">
+                        <span class="detail-label">📍 Adres:</span>
+                        <span>{hotel.get('address', 'N/A')}, {hotel.get('city', 'N/A')}</span>
+                    </div>
+                    
+                    <div class="total">
+                        💰 Toplam Tutar: {symbol}{total_price:,.2f}
+                    </div>
+                </div>
+                
+                <p><strong>⚠️ Önemli Bilgiler:</strong></p>
+                <ul>
+                    <li>Lütfen rezervasyon numaranızı not alın</li>
+                    <li>Ödeme işleminizi tamamlamak için hesabınıza giriş yapın</li>
+                    <li>Sorularınız için: info@meetdelux.com</li>
+                    <li>Telefon: +90 535 243 96 96</li>
+                </ul>
+                
+                <center>
+                    <a href="{APP_URL}/bookings" class="button">Rezervasyonlarımı Görüntüle</a>
+                </center>
+            </div>
+            
+            <div class="footer">
+                <p><strong>MeetDelux</strong> - Türkiye'nin En Lüks Seminer Salonu Platformu</p>
+                <p style="font-size: 12px; margin-top: 10px;">
+                    Atakent Mah. Kutlutaş Sitesi A5 Blok Daire 1<br>
+                    Halkalı, Küçükçekmece, İstanbul<br>
+                    www.meetdelux.com
+                </p>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
+    
+    # Plain text version
+    text = f"""
+    REZERVASYON ONAYI - MeetDelux
+    
+    Sayın {user.get('full_name', 'Müşteri')},
+    
+    Rezervasyonunuz başarıyla oluşturulmuştur!
+    
+    REZERVASYON BİLGİLERİ:
+    - Rezervasyon No: {booking.get('id', 'N/A')[:8].upper()}
+    - Otel: {hotel.get('name', 'N/A')}
+    - Salon: {room.get('name', 'N/A')}
+    - Giriş: {check_in}
+    - Çıkış: {check_out}
+    - Katılımcı: {booking.get('number_of_guests', 'N/A')} Kişi
+    - Adres: {hotel.get('address', 'N/A')}, {hotel.get('city', 'N/A')}
+    
+    TOPLAM TUTAR: {symbol}{total_price:,.2f}
+    
+    Rezervasyonlarınızı görüntülemek için: {APP_URL}/bookings
+    
+    İletişim: info@meetdelux.com | +90 535 243 96 96
+    
+    MeetDelux - Türkiye'nin En Lüks Seminer Salonu Platformu
+    """
+    
+    return html, text
+
 # Currency and Location Utility Functions
 async def get_client_country_from_ip(client_ip: str) -> str:
     """Get country code from client IP address"""
