@@ -103,9 +103,9 @@ function App() {
     <CurrencyProvider>
       <AuthContext.Provider value={{ user, login, register, logout }}>
         <BrowserRouter>
-          <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+          <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col">
             <Navbar />
-            <main>
+            <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={!user ? <LoginPage /> : <Navigate to={user.role === 'customer' ? '/' : '/dashboard'} />} />
@@ -117,6 +117,7 @@ function App() {
                 <Route path="/rooms/:roomId/booking" element={user ? <BookingForm /> : <Navigate to="/login" />} />
                 <Route path="/bookings" element={user ? <BookingList /> : <Navigate to="/login" />} />
                 <Route path="/bookings/:bookingId/payment" element={user ? <PaymentPage /> : <Navigate to="/login" />} />
+                <Route path="/contact" element={<ContactPage />} />
                 <Route 
                   path="/dashboard" 
                   element={
@@ -135,6 +136,7 @@ function App() {
                 />
               </Routes>
             </main>
+            <Footer />
             <Toaster position="top-right" richColors />
           </div>
         </BrowserRouter>
