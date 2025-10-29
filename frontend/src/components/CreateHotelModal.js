@@ -203,6 +203,40 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          {/* Google Places Autocomplete - FIRST */}
+          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-lg border border-indigo-200">
+            <Label className="text-indigo-900 font-medium flex items-center gap-2">
+              <MapPin className="h-4 w-4" />
+              Google'dan Otel Ara (Önerilen)
+            </Label>
+            <p className="text-xs text-indigo-600 mb-2">
+              Otel adını yazın, Google otomatik olarak tüm bilgileri dolduracak
+            </p>
+            <GooglePlacesAutocomplete
+              value={formData.name}
+              onChange={(value) => setFormData(prev => ({ ...prev, name: value }))}
+              onPlaceSelected={handlePlaceSelected}
+              placeholder="Örn: Hilton Istanbul Bomonti, Swissotel..."
+              className="bg-white"
+            />
+            {placeSelected && (
+              <div className="mt-2 flex items-center gap-2 text-green-600 text-sm">
+                <CheckCircle2 className="h-4 w-4" />
+                <span>Otel bilgileri otomatik yüklendi!</span>
+              </div>
+            )}
+          </div>
+
+          {/* Divider */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-200"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">veya manuel doldurun</span>
+            </div>
+          </div>
+
           {/* Basic Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="md:col-span-2">
