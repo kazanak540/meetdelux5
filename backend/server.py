@@ -1133,6 +1133,88 @@ async def create_default_services(
             "service_type": "group_transfer",
             "duration_minutes": 45,
             "capacity_per_service": 15
+        },
+        
+        # Etkinlik & Eğlence Hizmetleri
+        {
+            "name": "Koktey Servisi",
+            "description": "Premium içecek servisi, özel kokteyller, profesyonel barista",
+            "price": 18.0,
+            "currency": "EUR",
+            "unit": "person",
+            "category": "catering",
+            "service_type": "cocktail_service",
+            "capacity_per_service": 1
+        },
+        {
+            "name": "Doğum Günü Pastası",
+            "description": "Özel tasarım doğum günü pastası, kişiye özel mesaj",
+            "price": 150.0,
+            "currency": "EUR",
+            "unit": "piece",
+            "category": "catering",
+            "service_type": "birthday_cake",
+            "capacity_per_service": 20
+        },
+        {
+            "name": "Çiçek Düzenleme",
+            "description": "Profesyonel çiçek aranjmanı, masa ve sahne dekorasyonu",
+            "price": 250.0,
+            "currency": "EUR",
+            "unit": "set",
+            "category": "decoration",
+            "service_type": "flower_arrangement",
+            "capacity_per_service": 1
+        },
+        {
+            "name": "Fotoğrafçı Hizmeti",
+            "description": "Profesyonel fotoğrafçı, etkinlik çekimi, dijital albüm",
+            "price": 80.0,
+            "currency": "EUR",
+            "unit": "hour",
+            "category": "service",
+            "service_type": "photographer",
+            "capacity_per_service": 1
+        },
+        {
+            "name": "Müzik Grubu",
+            "description": "Canlı müzik performansı, DJ veya akustik grup seçenekleri",
+            "price": 200.0,
+            "currency": "EUR",
+            "unit": "hour",
+            "category": "entertainment",
+            "service_type": "live_music",
+            "capacity_per_service": 1
+        },
+        {
+            "name": "Sahne Düzenlemesi",
+            "description": "Profesyonel sahne kurulumu, podyum, dekorasyon",
+            "price": 350.0,
+            "currency": "EUR",
+            "unit": "set",
+            "category": "equipment",
+            "service_type": "stage_setup",
+            "capacity_per_service": 1
+        },
+        {
+            "name": "LED Ekran Kiralama",
+            "description": "Büyük boy LED ekran, full HD görüntü, teknik destek dahil",
+            "price": 120.0,
+            "currency": "EUR",
+            "unit": "day",
+            "category": "equipment",
+            "service_type": "led_screen",
+            "capacity_per_service": 1
+        },
+        {
+            "name": "Ekstra Ses Sistemi",
+            "description": "Güçlendirilmiş ses sistemi, ekstra hoparlörler, mikrofon seti",
+            "price": 80.0,
+            "currency": "EUR",
+            "unit": "day",
+            "category": "equipment",
+            "service_type": "extra_sound_system",
+            "capacity_per_service": 1
         }
     ]
     
