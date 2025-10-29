@@ -1322,9 +1322,8 @@ async def get_payment_status(session_id: str, current_user: dict = Depends(get_c
         )
     
     try:
-        # Initialize Stripe checkout
-        host_url = "https://hotel-meetings.preview.emergentagent.com"  # We'll get this dynamically later
-        webhook_url = f"{host_url}/api/webhook/stripe"
+        # Initialize Stripe checkout with APP_URL from environment
+        webhook_url = f"{APP_URL}/api/webhook/stripe"
         stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
         
         # Get checkout status from Stripe
