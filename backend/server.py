@@ -1241,6 +1241,32 @@ async def create_booking(booking_data: BookingCreate, current_user: dict = Depen
     
     await db.bookings.insert_one(booking_dict)
     
+    # Send confirmation email
+    try:
+        # Get hotel details
+        hotel = await db.hotels.find_one({"id": room["hotel_id"]})
+        
+        if hotel:
+            # Generate email
+            html_content, text_content = generate_booking_confirmation_email(
+                booking=booking_dict,
+                room=room,
+                hotel=hotel,
+                user=current_user
+            )
+            
+            # Send email
+            await send_email(
+                to_email=current_user["email"],
+                subject=f"🎉 Rezervasyon Onayı - {hotel['name']}",
+                html_content=html_content,
+                text_content=text_content
+            )
+            logger.info(f"Confirmation email sent to {current_user['email']} for booking {booking_dict['id']}")
+    except Exception as e:
+        # Log error but don't fail the booking
+        logger.error(f"Failed to send confirmation email: {str(e)}")
+    
     return BookingResponse(**booking_dict)
 
 @api_router.get("/bookings", response_model=List[BookingResponse])
