@@ -47,6 +47,17 @@ APP_URL = os.environ.get('APP_URL', 'http://localhost:3000')
 if not STRIPE_API_KEY:
     logger.warning("STRIPE_API_KEY not found in environment variables - Payment features will be limited")
 
+# Email Settings
+SMTP_HOST = os.environ.get('SMTP_HOST')
+SMTP_PORT = int(os.environ.get('SMTP_PORT', 587))
+SMTP_USER = os.environ.get('SMTP_USER')
+SMTP_PASSWORD = os.environ.get('SMTP_PASSWORD')
+SMTP_FROM_EMAIL = os.environ.get('SMTP_FROM_EMAIL')
+SMTP_FROM_NAME = os.environ.get('SMTP_FROM_NAME', 'MeetDelux')
+
+if not all([SMTP_HOST, SMTP_USER, SMTP_PASSWORD]):
+    logger.warning("SMTP settings not configured - Email features will be disabled")
+
 # Create the main app
 app = FastAPI(title="MeetDelux - Lüks Seminer Salonu Rezervasyon API", version="1.0.0")
 
