@@ -13,7 +13,7 @@ from datetime import datetime, timedelta, timezone
 import jwt
 import bcrypt
 from enum import Enum
-from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionResponse, CheckoutStatusResponse, CheckoutSessionRequest
+# Stripe imports disabled - basic models used
 import httpx
 import asyncio
 from decimal import Decimal, ROUND_HALF_UP
@@ -1726,7 +1726,7 @@ import shutil
 from pathlib import Path
 
 # Create upload directories
-UPLOAD_DIR = Path("/app/uploads")
+UPLOAD_DIR = Path("/home/kenanadm/uploads")
 HOTEL_IMAGES_DIR = UPLOAD_DIR / "hotels"
 ROOM_IMAGES_DIR = UPLOAD_DIR / "rooms"
 
@@ -2285,6 +2285,42 @@ async def reject_room(room_id: str, reason: Optional[str] = None, current_user: 
     return {"message": "Room rejected", "room_id": room_id}
 
 # Include the router in the main app
+# Delete Hotel Endpoint
+@api_router.delete('/hotels/{hotel_id}')
+async def delete_hotel(hotel_id: str, current_user: dict = Depends(get_current_user)):
+    user = current_user
+    hotel = await db.hotels.find_one({'id': hotel_id})
+    if not hotel:
+        raise HTTPException(status_code=404, detail='Hotel not found')
+    if user['role'] not in ['admin', 'hotel_manager']:
+        raise HTTPException(status_code=403, detail='Not authorized')
+    if user['role'] == 'hotel_manager' and hotel['manager_id'] != user['user_id']:
+        raise HTTPException(status_code=403, detail='Not authorized to delete this hotel')
+    await db.conference_rooms.delete_many({'hotel_id': hotel_id})
+    result = await db.hotels.delete_one({'id': hotel_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail='Hotel not found')
+    return {'message': 'Hotel deleted successfully'}
+
+# Delete Room Endpoint
+@api_router.delete('/rooms/{room_id}')
+async def delete_room(room_id: str, current_user: dict = Depends(get_current_user)):
+    user = current_user
+    room = await db.conference_rooms.find_one({'id': room_id})
+    if not room:
+        raise HTTPException(status_code=404, detail='Room not found')
+    hotel = await db.hotels.find_one({'id': room['hotel_id']})
+    if not hotel:
+        raise HTTPException(status_code=404, detail='Hotel not found')
+    if user['role'] not in ['admin', 'hotel_manager']:
+        raise HTTPException(status_code=403, detail='Not authorized')
+    if user['role'] == 'hotel_manager' and hotel['manager_id'] != user['user_id']:
+        raise HTTPException(status_code=403, detail='Not authorized to delete this room')
+    result = await db.conference_rooms.delete_one({'id': room_id})
+    if result.deleted_count == 0:
+        raise HTTPException(status_code=404, detail='Room not found')
+    return {'message': 'Room deleted successfully'}
+
 app.include_router(api_router)
 
 app.add_middleware(

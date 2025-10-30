@@ -179,7 +179,20 @@ const HotelList = () => {
                 onClick={() => navigate(`/hotels/${hotel.id}`)}
               >
                 {/* Hotel Image */}
-                <div className="h-48 bg-gradient-to-br from-indigo-400 to-purple-500 relative overflow-hidden">
+                <div className="h-48 relative overflow-hidden bg-gray-200">
+                  {hotel.images && hotel.images.length > 0 ? (
+                    <img 
+                      src={hotel.images[0]} 
+                      alt={hotel.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.classList.add('bg-gradient-to-br', 'from-indigo-400', 'to-purple-500');
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-indigo-400 to-purple-500"></div>
+                  )}
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-300"></div>
                   
                   {/* Star Rating */}

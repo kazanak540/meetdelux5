@@ -108,8 +108,8 @@ function App() {
             <main className="flex-grow">
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/login" element={!user ? <LoginPage /> : <Navigate to={user.role === 'customer' ? '/' : '/dashboard'} />} />
-                <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to={user.role === 'customer' ? '/' : '/dashboard'} />} />
+                <Route path="/login" element={!user ? <LoginPage /> : <Navigate to={user.role === 'customer' ? '/' : (user.role === 'admin' ? '/admin/approvals' : '/dashboard')} />} />
+                <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to={user.role === 'customer' ? '/' : (user.role === 'admin' ? '/admin/approvals' : '/dashboard')} />} />
                 <Route path="/hotels" element={<HotelList />} />
                 <Route path="/hotels/:id" element={<HotelDetail />} />
                 <Route path="/rooms" element={<RoomSearch />} />

@@ -302,7 +302,20 @@ const RoomSearch = () => {
                   >
                     <div className="flex">
                       {/* Room Image */}
-                      <div className="w-80 h-64 bg-gradient-to-br from-purple-400 to-indigo-500 relative">
+                      <div className="w-80 h-64 relative bg-gray-200">
+                        {room.images && room.images.length > 0 ? (
+                          <img 
+                            src={room.images[0]} 
+                            alt={room.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.parentElement.classList.add('bg-gradient-to-br', 'from-purple-400', 'to-indigo-500');
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-purple-400 to-indigo-500"></div>
+                        )}
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="absolute top-4 left-4 bg-white/90 px-3 py-1 rounded-full text-sm font-medium">
                           <Users className="inline h-4 w-4 mr-1" />

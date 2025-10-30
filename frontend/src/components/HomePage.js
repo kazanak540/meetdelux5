@@ -848,7 +848,20 @@ const HomePage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredHotels.map((hotel) => (
                 <div key={hotel.id} className="hotel-card group cursor-pointer" onClick={() => navigate(`/hotels/${hotel.id}`)}>
-                  <div className="h-48 bg-gradient-to-br from-indigo-400 to-purple-500 relative overflow-hidden">
+                  <div className="h-48 relative overflow-hidden bg-gray-200">
+                    {hotel.images && hotel.images.length > 0 ? (
+                      <img 
+                        src={hotel.images[0]} 
+                        alt={hotel.name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.classList.add('bg-gradient-to-br', 'from-indigo-400', 'to-purple-500');
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-indigo-400 to-purple-500"></div>
+                    )}
                     <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all duration-300"></div>
                     <div className="absolute top-4 right-4">
                       <div className="flex items-center space-x-1 bg-white/90 px-2 py-1 rounded-full">

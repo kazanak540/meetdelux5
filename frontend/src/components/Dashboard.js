@@ -115,6 +115,51 @@ const Dashboard = () => {
     }
   };
 
+  const handleDeleteHotel = async (hotelId) => {
+    if (!window.confirm('Bu oteli silmek istediğinizden emin misiniz?')) {
+      return;
+    }
+    
+    try {
+      await axios.delete(`${API}/hotels/${hotelId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      toast.success('Otel başarıyla silindi');
+      fetchDashboardData();
+    } catch (error) {
+      console.error('Delete hotel error:', error);
+      toast.error('Otel silinirken hata oluştu');
+    }
+  };
+
+  const handleEditHotel = (hotel) => {
+    console.log('Edit hotel:', hotel);
+    toast.info('Edit özelliği yakında eklenecek');
+  };
+
+  const handleDeleteRoom = async (roomId) => {
+    if (!window.confirm('Bu salonu silmek istediğinizden emin misiniz?')) {
+      return;
+    }
+    
+    try {
+      await axios.delete(`${API}/rooms/${roomId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      toast.success('Salon başarıyla silindi');
+      fetchDashboardData();
+    } catch (error) {
+      console.error('Delete room error:', error);
+      toast.error('Salon silinirken hata oluştu');
+    }
+  };
+
+  const handleEditRoom = (room) => {
+    console.log('Edit room:', room);
+    toast.info('Edit özelliği yakında eklenecek');
+  };
+
+
   const handleHotelCreated = (newHotel) => {
     setHotels(prev => [...prev, newHotel]);
     setStats(prev => ({
@@ -238,14 +283,16 @@ const Dashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center justify-between">
                 <span>Otellerim</span>
-                <Button 
-                  size="sm" 
-                  className="bg-indigo-600 hover:bg-indigo-700"
-                  onClick={() => setShowCreateHotelModal(true)}
-                >
-                  <Plus className="h-4 w-4 mr-2" />
-                  Yeni Otel
-                </Button>
+                {user.role === 'hotel_manager' && (
+                  <Button 
+                    size="sm" 
+                    className="bg-indigo-600 hover:bg-indigo-700"
+                    onClick={() => setShowCreateHotelModal(true)}
+                  >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Yeni Otel
+                  </Button>
+                )}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -253,12 +300,14 @@ const Dashboard = () => {
                 <div className="text-center py-8">
                   <Building2 className="h-12 w-12 text-gray-300 mx-auto mb-4" />
                   <p className="text-gray-500">Henüz hiç otel eklenmemiş.</p>
-                  <Button 
-                    className="mt-4 bg-indigo-600 hover:bg-indigo-700"
-                    onClick={() => setShowCreateHotelModal(true)}
-                  >
-                    İlk Otelimi Ekle
-                  </Button>
+                  {user.role === 'hotel_manager' && (
+                    <Button 
+                      className="mt-4 bg-indigo-600 hover:bg-indigo-700"
+                      onClick={() => setShowCreateHotelModal(true)}
+                    >
+                      İlk Otelimi Ekle
+                    </Button>
+                  )}
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -272,10 +321,19 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleEditHotel(hotel)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-red-600 hover:text-red-700"
+                          onClick={() => handleDeleteHotel(hotel.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -325,10 +383,19 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleEditRoom(room)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-red-600 hover:text-red-700"
+                          onClick={() => handleDeleteRoom(room.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -389,10 +456,19 @@ const Dashboard = () => {
                         )}
                       </div>
                       <div className="flex space-x-2">
-                        <Button size="sm" variant="outline">
+                        <Button 
+                          size="sm" 
+                          variant="outline"
+                          onClick={() => handleEditRoom(room)}
+                        >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700">
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-red-600 hover:text-red-700"
+                          onClick={() => handleDeleteRoom(room.id)}
+                        >
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
@@ -554,8 +630,8 @@ const Dashboard = () => {
                     </div>
                     <div className="flex space-x-2">
                       <Button size="sm" variant="outline">
-                        <Edit className="h-4 w-4" />
-                      </Button>
+                          <Edit className="h-4 w-4" />
+                        </Button>
                       <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700">
                         <Trash2 className="h-4 w-4" />
                       </Button>
