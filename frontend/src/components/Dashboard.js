@@ -19,11 +19,14 @@ const Dashboard = () => {
   const [ballrooms, setBallrooms] = useState([]);
   const [advertisements, setAdvertisements] = useState([]);
   const [banners, setBanners] = useState([]);
+  const [extraServices, setExtraServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateHotelModal, setShowCreateHotelModal] = useState(false);
   const [showCreateRoomModal, setShowCreateRoomModal] = useState(false);
   const [showCreateBallroomModal, setShowCreateBallroomModal] = useState(false);
   const [showBannerModal, setShowBannerModal] = useState(false);
+  const [showCreateServiceModal, setShowCreateServiceModal] = useState(false);
+  const [selectedHotelForService, setSelectedHotelForService] = useState(null);
   const [editingBanner, setEditingBanner] = useState(null);
   const [stats, setStats] = useState({
     totalHotels: 0,
