@@ -848,6 +848,21 @@ const Dashboard = () => {
             }}
           />
         )}
+
+        {/* Edit Hotel Modal */}
+        {editingHotel && (
+          <EditHotelModal
+            isOpen={showEditHotelModal}
+            onClose={() => {
+              setShowEditHotelModal(false);
+              setEditingHotel(null);
+            }}
+            hotel={editingHotel}
+            onSuccess={() => {
+              fetchDashboardData();
+            }}
+          />
+        )}
       </div>
     </div>
   );
