@@ -427,6 +427,74 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
+          {/* Extra Services Management */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between">
+                <span>Ekstra Hizmetler</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {extraServices.length === 0 ? (
+                <div className="text-center py-8">
+                  <Coffee className="h-12 w-12 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500">Henüz hiç ekstra hizmet eklenmemiş.</p>
+                  <p className="text-sm text-gray-400 mt-2">Otelleriniz için ekstra hizmetler eklemek için yukarıdaki "Hizmet" butonunu kullanın.</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {extraServices.map((service) => (
+                    <div key={service.id} className="border border-gray-200 rounded-lg p-4 hover:border-indigo-300 transition-colors">
+                      <div className="flex items-start justify-between mb-2">
+                        <div className="flex items-center space-x-2">
+                          <div className="text-indigo-600">
+                            {getCategoryIcon(service.category)}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold text-gray-900 text-sm">{service.name}</h4>
+                            <p className="text-xs text-gray-500">{service.hotel_name}</p>
+                          </div>
+                        </div>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-red-600 hover:text-red-700 h-6 w-6 p-0"
+                          onClick={() => handleDeleteService(service.hotel_id, service.id)}
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      
+                      {service.description && (
+                        <p className="text-xs text-gray-600 mb-2 line-clamp-2">{service.description}</p>
+                      )}
+                      
+                      <div className="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+                        <div>
+                          <span className="text-xs text-gray-500">Kategori:</span>
+                          <p className="text-xs font-medium text-gray-700">{getCategoryName(service.category)}</p>
+                        </div>
+                        <div className="text-right">
+                          <span className="text-xs text-gray-500">Fiyat:</span>
+                          <p className="text-sm font-bold text-indigo-600">
+                            {service.currency === 'TRY' ? '₺' : service.currency === 'EUR' ? '€' : '$'}
+                            {service.price.toFixed(2)}
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            / {service.unit === 'person' ? 'Kişi' : 
+                               service.unit === 'hour' ? 'Saat' : 
+                               service.unit === 'day' ? 'Gün' : 
+                               service.unit === 'package' ? 'Paket' : 'Adet'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
           {/* Rooms Management */}
           <Card>
             <CardHeader>
