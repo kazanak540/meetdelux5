@@ -207,8 +207,8 @@ const Dashboard = () => {
   };
 
   const handleEditHotel = (hotel) => {
-    console.log('Edit hotel:', hotel);
-    toast.info('Edit özelliği yakında eklenecek');
+    setEditingHotel(hotel);
+    setShowEditHotelModal(true);
   };
 
   const handleDeleteRoom = async (roomId) => {
