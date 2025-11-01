@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import CreateHotelModal from './CreateHotelModal';
 import CreateRoomModal from './CreateRoomModal';
 import CreateExtraServiceModal from './CreateExtraServiceModal';
+import EditHotelModal from './EditHotelModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
