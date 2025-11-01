@@ -466,6 +466,15 @@ const HotelDetail = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Gallery Modal */}
+      <ImageGalleryModal
+        images={hotel?.images || []}
+        initialIndex={selectedImageIndex}
+        isOpen={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+        title={hotel?.name}
+      />
     </div>
   );
 };
