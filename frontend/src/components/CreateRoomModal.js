@@ -32,7 +32,8 @@ const CreateRoomModal = ({ isOpen, onClose, onSuccess, defaultRoomType = 'confer
     currency: 'EUR',
     features: [],
     layout_options: [],
-    images: []
+    images: [],
+    videos: []
   });
 
   const availableFeatures = [
