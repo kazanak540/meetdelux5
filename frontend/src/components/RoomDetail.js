@@ -183,17 +183,28 @@ const RoomDetail = () => {
                     <h3 className="text-lg font-medium text-gray-900 mb-3">Salon Fotoğrafları</h3>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       {room.images.map((image, idx) => (
-                        <div key={idx} className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+                        <div 
+                          key={idx} 
+                          className="aspect-video rounded-lg overflow-hidden bg-gray-100 cursor-pointer group relative"
+                          onClick={() => {
+                            setSelectedImageIndex(idx);
+                            setGalleryOpen(true);
+                          }}
+                        >
                           <img 
                             src={image} 
                             alt={`${room.name} - Görsel ${idx + 1}`}
-                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
-                            onClick={() => window.open(image, '_blank')}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             onError={(e) => {
                               e.target.onerror = null;
                               e.target.src = 'https://via.placeholder.com/400x300?text=Resim+Yüklenemedi';
                             }}
                           />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                            <span className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-sm font-medium">
+                              Büyüt
+                            </span>
+                          </div>
                         </div>
                       ))}
                     </div>
