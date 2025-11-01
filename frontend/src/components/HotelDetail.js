@@ -296,29 +296,43 @@ const HotelDetail = () => {
             <Card>
               <CardContent className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">İletişim Bilgileri</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600">{hotel.phone}</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600">{hotel.email}</span>
-                  </div>
-                  {hotel.website && (
+                {currentUser?.role === 'admin' ? (
+                  <div className="space-y-3">
                     <div className="flex items-center space-x-3">
-                      <Globe className="h-5 w-5 text-gray-400" />
-                      <a 
-                        href={hotel.website} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-700"
-                      >
-                        Web Sitesi
-                      </a>
+                      <Phone className="h-5 w-5 text-gray-400" />
+                      <span className="text-gray-600">{hotel.phone}</span>
                     </div>
-                  )}
-                </div>
+                    <div className="flex items-center space-x-3">
+                      <Mail className="h-5 w-5 text-gray-400" />
+                      <span className="text-gray-600">{hotel.email}</span>
+                    </div>
+                    {hotel.website && (
+                      <div className="flex items-center space-x-3">
+                        <Globe className="h-5 w-5 text-gray-400" />
+                        <a 
+                          href={hotel.website} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:text-indigo-700"
+                        >
+                          Web Sitesi
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p className="text-sm text-blue-800 text-center">
+                      📞 İletişim bilgilerini görmek için rezervasyon yapmalısınız
+                    </p>
+                    <Button 
+                      className="w-full mt-3 bg-blue-600 hover:bg-blue-700"
+                      onClick={() => navigate('/rooms', { state: { hotelFilter: hotel.id } })}
+                    >
+                      Rezervasyon Yap
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </Card>
 
