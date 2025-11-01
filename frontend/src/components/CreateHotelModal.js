@@ -31,7 +31,8 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
     facilities: [],
     latitude: '',
     longitude: '',
-    images: []
+    images: [],
+    videos: []
   });
 
   const availableFacilities = [
