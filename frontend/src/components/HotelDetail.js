@@ -399,13 +399,23 @@ const HotelDetail = () => {
                   >
                     Salon Ara
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => window.open(`tel:${hotel.phone}`)}
-                  >
-                    Hemen Ara
-                  </Button>
+                  {isAdmin && (
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => window.open(`tel:${hotel.phone}`)}
+                    >
+                      <Phone className="h-4 w-4 mr-2" />
+                      Hemen Ara
+                    </Button>
+                  )}
+                  {!isAdmin && (
+                    <div className="bg-gray-50 rounded-lg p-4 text-center">
+                      <p className="text-sm text-gray-600">
+                        Rezervasyon için salonları inceleyin
+                      </p>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
