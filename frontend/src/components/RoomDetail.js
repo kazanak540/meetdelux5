@@ -469,6 +469,24 @@ const RoomDetail = () => {
                       </span>
                     </div>
                   )}
+                  {Object.keys(selectedServices).length > 0 && (
+                    <>
+                      <div className="flex justify-between items-center text-sm">
+                        <span className="text-gray-600">Ekstra Hizmetler</span>
+                        <span className="font-medium text-gray-700">
+                          + {formatPrice(calculateTotalExtras(), currency)}
+                        </span>
+                      </div>
+                      <div className="pt-3 border-t border-gray-200">
+                        <div className="flex justify-between items-center">
+                          <span className="text-lg font-semibold text-gray-900">Toplam</span>
+                          <span className="text-2xl font-bold text-green-600">
+                            {formatPrice((room.pricing_info ? room.pricing_info.display_price : room.price_per_day) + calculateTotalExtras(), room.currency || 'EUR')}
+                          </span>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
                 
                 <div className="space-y-3">
