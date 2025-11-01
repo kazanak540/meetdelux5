@@ -143,6 +143,7 @@ class HotelCreate(BaseModel):
     star_rating: Optional[int] = Field(None, ge=1, le=5)
     facilities: List[str] = []
     images: List[str] = []
+    videos: List[str] = []
     latitude: Optional[float] = None
     longitude: Optional[float] = None
 
