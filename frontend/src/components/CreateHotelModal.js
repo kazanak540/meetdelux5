@@ -416,6 +416,21 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
             </div>
           </div>
 
+          {/* Video Upload */}
+          <div>
+            <Label>Tanıtım Videoları</Label>
+            <p className="text-sm text-gray-500 mb-2">Otel tanıtım videoları yükleyebilirsiniz (Maks. 100MB)</p>
+            <div className="mt-2">
+              <VideoUpload
+                entityId="temp-hotel"
+                entityType="hotel"
+                videos={formData.videos}
+                onVideoUploaded={handleVideoUploaded}
+                onVideoRemoved={handleVideoRemoved}
+              />
+            </div>
+          </div>
+
           {/* Actions */}
           <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200">
             <Button type="button" variant="outline" onClick={onClose}>
