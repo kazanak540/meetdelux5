@@ -395,6 +395,18 @@ const Dashboard = () => {
                         <Button 
                           size="sm" 
                           variant="outline"
+                          className="text-indigo-600 hover:text-indigo-700"
+                          onClick={() => {
+                            setSelectedHotelForService(hotel);
+                            setShowCreateServiceModal(true);
+                          }}
+                        >
+                          <Plus className="h-4 w-4 mr-1" />
+                          Hizmet
+                        </Button>
+                        <Button 
+                          size="sm" 
+                          variant="outline"
                           onClick={() => handleEditHotel(hotel)}
                         >
                           <Edit className="h-4 w-4" />
