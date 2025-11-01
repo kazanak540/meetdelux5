@@ -347,13 +347,15 @@ const HotelDetail = () => {
                   >
                     Salon Ara
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full"
-                    onClick={() => window.open(`tel:${hotel.phone}`)}
-                  >
-                    Hemen Ara
-                  </Button>
+                  {currentUser?.role === 'admin' && (
+                    <Button 
+                      variant="outline" 
+                      className="w-full"
+                      onClick={() => window.open(`tel:${hotel.phone}`)}
+                    >
+                      Hemen Ara
+                    </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>
