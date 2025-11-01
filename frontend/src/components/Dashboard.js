@@ -3,10 +3,11 @@ import axios from 'axios';
 import { AuthContext } from '../App';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Building2, Users, Calendar, TrendingUp, Plus, Edit, Trash2 } from 'lucide-react';
+import { Building2, Users, Calendar, TrendingUp, Plus, Edit, Trash2, Coffee, Utensils, Car, Briefcase, Package, Monitor } from 'lucide-react';
 import { toast } from 'sonner';
 import CreateHotelModal from './CreateHotelModal';
 import CreateRoomModal from './CreateRoomModal';
+import CreateExtraServiceModal from './CreateExtraServiceModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
