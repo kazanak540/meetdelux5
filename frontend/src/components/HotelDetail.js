@@ -7,6 +7,7 @@ import { MapPin, Star, Phone, Mail, Globe, Users, Wifi, Car, Utensils, Dumbbell,
 import GoogleMap from './GoogleMap';
 import { toast } from 'sonner';
 import useCurrency from '../hooks/useCurrency';
+import ImageGalleryModal from './ImageGalleryModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -20,6 +21,8 @@ const HotelDetail = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   
   // Check if user is admin
   useEffect(() => {
