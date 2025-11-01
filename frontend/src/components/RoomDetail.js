@@ -6,6 +6,7 @@ import { Card, CardContent } from './ui/card';
 import { MapPin, Users, Calendar, Clock, Monitor, Volume2, Snowflake, Wifi, Building2, ArrowLeft, Phone, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCurrency } from '../hooks/useCurrency';
+import ImageGalleryModal from './ImageGalleryModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
@@ -17,6 +18,8 @@ const RoomDetail = () => {
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(true);
   const { formatPrice, currency } = useCurrency();
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 
   useEffect(() => {
     fetchRoomDetails();
