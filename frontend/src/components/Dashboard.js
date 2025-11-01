@@ -29,6 +29,8 @@ const Dashboard = () => {
   const [showCreateServiceModal, setShowCreateServiceModal] = useState(false);
   const [selectedHotelForService, setSelectedHotelForService] = useState(null);
   const [editingBanner, setEditingBanner] = useState(null);
+  const [showEditHotelModal, setShowEditHotelModal] = useState(false);
+  const [editingHotel, setEditingHotel] = useState(null);
   const [stats, setStats] = useState({
     totalHotels: 0,
     totalRooms: 0,
