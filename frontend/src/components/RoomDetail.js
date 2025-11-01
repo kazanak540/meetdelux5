@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
-import { MapPin, Users, Calendar, Clock, Monitor, Volume2, Snowflake, Wifi, Building2, ArrowLeft, Phone, Mail } from 'lucide-react';
+import { MapPin, Users, Calendar, Clock, Monitor, Volume2, Snowflake, Wifi, Building2, ArrowLeft, Phone, Mail, Coffee, Utensils, Car, Briefcase, Package, Plus, Minus, Check } from 'lucide-react';
 import { toast } from 'sonner';
 import { useCurrency } from '../hooks/useCurrency';
 import ImageGalleryModal from './ImageGalleryModal';
