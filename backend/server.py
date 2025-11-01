@@ -183,6 +183,7 @@ class ConferenceRoomCreate(BaseModel):
     features: List[str] = []  # ["projector", "sound_system", "whiteboard", "wifi", "air_conditioning"]
     layout_options: List[str] = []  # ["theater", "classroom", "u_shape", "boardroom"]
     images: List[str] = []
+    videos: List[str] = []
     is_available: bool = True
 
 class ConferenceRoomResponse(ConferenceRoomCreate):
