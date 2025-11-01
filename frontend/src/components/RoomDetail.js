@@ -55,6 +55,38 @@ const RoomDetail = () => {
     }
   };
 
+  const handleServiceQuantityChange = (serviceId, quantity) => {
+    setSelectedServices(prev => {
+      if (quantity <= 0) {
+        const newServices = { ...prev };
+        delete newServices[serviceId];
+        return newServices;
+      }
+      return {
+        ...prev,
+        [serviceId]: quantity
+      };
+    });
+  };
+
+  const calculateTotalExtras = () => {
+    return extraServices.reduce((total, service) => {
+      const quantity = selectedServices[service.id] || 0;
+      return total + (service.price * quantity);
+    }, 0);
+  };
+
+  const getCategoryIcon = (category) => {
+    const icons = {
+      catering: <Utensils className="h-5 w-5" />,
+      equipment: <Monitor className="h-5 w-5" />,
+      service: <Briefcase className="h-5 w-5" />,
+      transport: <Car className="h-5 w-5" />,
+      refreshment: <Coffee className="h-5 w-5" />
+    };
+    return icons[category] || <Package className="h-5 w-5" />;
+  };
+
   const getFeatureIcon = (feature) => {
     const icons = {
       projector: <Monitor className="h-5 w-5" />,
