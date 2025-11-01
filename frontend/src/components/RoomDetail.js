@@ -20,6 +20,8 @@ const RoomDetail = () => {
   const { formatPrice, currency } = useCurrency();
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [extraServices, setExtraServices] = useState([]);
+  const [selectedServices, setSelectedServices] = useState({});
 
   useEffect(() => {
     fetchRoomDetails();
