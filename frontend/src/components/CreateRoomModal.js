@@ -447,6 +447,21 @@ const CreateRoomModal = ({ isOpen, onClose, onSuccess, defaultRoomType = 'confer
             )}
           </div>
 
+          {/* Videos */}
+          <div>
+            <Label>Salon Tanıtım Videoları</Label>
+            <p className="text-sm text-gray-500 mb-2">Salon tanıtım videoları yükleyebilirsiniz (Maks. 100MB)</p>
+            <div className="mt-2">
+              <VideoUpload
+                entityId="temp-room"
+                entityType="room"
+                videos={formData.videos}
+                onVideoUploaded={handleVideoUploaded}
+                onVideoRemoved={handleVideoRemoved}
+              />
+            </div>
+          </div>
+
           {/* Features */}
           <div>
             <Label>Salon Özellikleri</Label>
