@@ -173,6 +173,51 @@ const RoomDetail = () => {
                 <p className="text-gray-600 text-lg leading-relaxed mb-6">
                   {room.description || 'Bu salon modern donanımları ve profesyonel atmosferi ile seminerleriniz için mükemmel bir seçimdir.'}
                 </p>
+
+                {/* Photo Gallery */}
+                {room.images && room.images.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-3">Salon Fotoğrafları</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {room.images.map((image, idx) => (
+                        <div key={idx} className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+                          <img 
+                            src={image} 
+                            alt={`${room.name} - Görsel ${idx + 1}`}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                            onClick={() => window.open(image, '_blank')}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = 'https://via.placeholder.com/400x300?text=Resim+Yüklenemedi';
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Video Gallery */}
+                {room.videos && room.videos.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-3">Salon Tanıtım Videoları</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {room.videos.map((video, idx) => (
+                        <div key={idx} className="aspect-video rounded-lg overflow-hidden bg-gray-900">
+                          <video 
+                            controls 
+                            className="w-full h-full object-cover"
+                            preload="metadata"
+                          >
+                            <source src={video} type="video/mp4" />
+                            <source src={video} type="video/webm" />
+                            Tarayıcınız video etiketini desteklemiyor.
+                          </video>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 
                 {/* Key Features */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
