@@ -19,6 +19,20 @@ const HotelDetail = () => {
   const [rooms, setRooms] = useState([]);
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
+  
+  // Check if user is admin
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    if (token && user) {
+      try {
+        setCurrentUser(JSON.parse(user));
+      } catch (e) {
+        console.error('Error parsing user:', e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     fetchHotelDetails();
