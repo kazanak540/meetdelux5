@@ -85,6 +85,20 @@ const CreateHotelModal = ({ isOpen, onClose, onSuccess }) => {
     }));
   };
 
+  const handleVideoUploaded = (videoUrl) => {
+    setFormData(prev => ({
+      ...prev,
+      videos: [...prev.videos, videoUrl]
+    }));
+  };
+
+  const handleVideoRemoved = (videoUrl) => {
+    setFormData(prev => ({
+      ...prev,
+      videos: prev.videos.filter(v => v !== videoUrl)
+    }));
+  };
+
   const handlePlaceSelected = (place) => {
     if (place) {
       setFormData(prev => ({
