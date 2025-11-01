@@ -95,9 +95,9 @@ const Footer = () => {
               <li className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-indigo-400 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-400 text-sm">
-                  Atakent Mahallesi Kutlutaş Sitesi<br />
-                  A5 Blok Daire 1<br />
-                  Halkalı, Küçükçekmece<br />
+                  Zorlu Rezidans, Levazım<br />
+                  Koru Sk. No:2<br />
+                  34340 Beşiktaş<br />
                   İstanbul
                 </span>
               </li>
