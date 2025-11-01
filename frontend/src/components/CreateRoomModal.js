@@ -8,6 +8,7 @@ import { Textarea } from './ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { X, Users, Building2, DollarSign } from 'lucide-react';
 import ImageUpload from './ImageUpload';
+import VideoUpload from './VideoUpload';
 import { toast } from 'sonner';
 import { useCurrency } from '../hooks/useCurrency';
 
