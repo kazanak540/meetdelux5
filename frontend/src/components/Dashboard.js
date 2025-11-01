@@ -110,6 +110,9 @@ const Dashboard = () => {
           totalBookings: allRooms.reduce((sum, room) => sum + (room.total_bookings || 0), 0),
           totalRevenue: allRooms.reduce((sum, room) => sum + (room.price_per_day * (room.total_bookings || 0)), 0)
         });
+        
+        // Fetch extra services for user's hotels
+        await fetchExtraServices(userHotels);
       }
     } catch (error) {
       console.error('Dashboard data fetch error:', error);
@@ -117,6 +120,70 @@ const Dashboard = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchExtraServices = async (hotelsList) => {
+    try {
+      const allServices = [];
+      for (const hotel of hotelsList) {
+        try {
+          const servicesResponse = await axios.get(`${API}/hotels/${hotel.id}/services`);
+          const servicesWithHotel = servicesResponse.data.map(service => ({
+            ...service,
+            hotel_name: hotel.name
+          }));
+          allServices.push(...servicesWithHotel);
+        } catch (error) {
+          console.log(`No services for hotel ${hotel.id}`);
+        }
+      }
+      setExtraServices(allServices);
+    } catch (error) {
+      console.error('Error fetching extra services:', error);
+    }
+  };
+
+  const handleDeleteService = async (hotelId, serviceId) => {
+    if (!window.confirm('Bu hizmeti silmek istediğinizden emin misiniz?')) {
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      await axios.delete(`${API}/hotels/${hotelId}/services/${serviceId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      toast.success('Hizmet başarıyla silindi');
+      // Refresh services
+      const userHotels = hotels.filter(hotel => hotel.manager_id === user.id);
+      await fetchExtraServices(userHotels);
+    } catch (error) {
+      console.error('Error deleting service:', error);
+      toast.error('Hizmet silinirken hata oluştu');
+    }
+  };
+
+  const getCategoryIcon = (category) => {
+    const icons = {
+      catering: <Utensils className="h-5 w-5" />,
+      equipment: <Monitor className="h-5 w-5" />,
+      service: <Briefcase className="h-5 w-5" />,
+      transport: <Car className="h-5 w-5" />,
+      refreshment: <Coffee className="h-5 w-5" />
+    };
+    return icons[category] || <Package className="h-5 w-5" />;
+  };
+
+  const getCategoryName = (category) => {
+    const names = {
+      catering: 'Yiyecek & İçecek',
+      equipment: 'Ekipman',
+      service: 'Hizmet',
+      transport: 'Ulaşım',
+      refreshment: 'İkramlar'
+    };
+    return names[category] || category;
   };
 
   const handleDeleteHotel = async (hotelId) => {
