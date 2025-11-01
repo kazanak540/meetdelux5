@@ -1846,6 +1846,176 @@ async def get_room_image(filename: str):
         return FileResponse(file_path)
     raise HTTPException(status_code=404, detail="Image not found")
 
+# Video Upload Routes
+@api_router.post("/hotels/{hotel_id}/upload-video")
+async def upload_hotel_video(
+    hotel_id: str,
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user)
+):
+    # Check permissions
+    hotel = await db.hotels.find_one({"id": hotel_id})
+    if not hotel:
+        raise HTTPException(status_code=404, detail="Hotel not found")
+    
+    if current_user["role"] == UserRole.HOTEL_MANAGER and hotel["manager_id"] != current_user["id"]:
+        raise HTTPException(status_code=403, detail="You can only manage your own hotel's videos")
+    elif current_user["role"] == UserRole.CUSTOMER:
+        raise HTTPException(status_code=403, detail="Customers cannot upload videos")
+    
+    # Validate file type
+    allowed_video_types = ["video/mp4", "video/mpeg", "video/quicktime", "video/x-msvideo", "video/webm"]
+    if file.content_type not in allowed_video_types:
+        raise HTTPException(status_code=400, detail="Only video files (MP4, MOV, AVI, WebM) are allowed")
+    
+    # Check file size (max 100MB)
+    content = await file.read()
+    if len(content) > 100 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Video file size must be less than 100MB")
+    
+    try:
+        # Generate unique filename
+        file_extension = file.filename.split(".")[-1]
+        unique_filename = f"hotel_{hotel_id}_{uuid.uuid4()}.{file_extension}"
+        file_path = VIDEO_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, "wb") as f:
+            f.write(content)
+        
+        # Create public URL
+        video_url = f"{APP_URL}/api/videos/{unique_filename}"
+        
+        # Update hotel videos array
+        await db.hotels.update_one(
+            {"id": hotel_id},
+            {"$push": {"videos": video_url}}
+        )
+        
+        return {"success": True, "video_url": video_url}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to upload video: {str(e)}")
+
+@api_router.post("/rooms/{room_id}/upload-video")
+async def upload_room_video(
+    room_id: str,
+    file: UploadFile = File(...),
+    current_user: dict = Depends(get_current_user)
+):
+    # Check permissions
+    room = await db.conference_rooms.find_one({"id": room_id})
+    if not room:
+        raise HTTPException(status_code=404, detail="Room not found")
+    
+    hotel = await db.hotels.find_one({"id": room["hotel_id"]})
+    if current_user["role"] == UserRole.HOTEL_MANAGER and hotel["manager_id"] != current_user["id"]:
+        raise HTTPException(status_code=403, detail="You can only manage your own hotel's room videos")
+    elif current_user["role"] == UserRole.CUSTOMER:
+        raise HTTPException(status_code=403, detail="Customers cannot upload videos")
+    
+    # Validate file type
+    allowed_video_types = ["video/mp4", "video/mpeg", "video/quicktime", "video/x-msvideo", "video/webm"]
+    if file.content_type not in allowed_video_types:
+        raise HTTPException(status_code=400, detail="Only video files (MP4, MOV, AVI, WebM) are allowed")
+    
+    # Check file size (max 100MB)
+    content = await file.read()
+    if len(content) > 100 * 1024 * 1024:
+        raise HTTPException(status_code=400, detail="Video file size must be less than 100MB")
+    
+    try:
+        # Generate unique filename
+        file_extension = file.filename.split(".")[-1]
+        unique_filename = f"room_{room_id}_{uuid.uuid4()}.{file_extension}"
+        file_path = VIDEO_DIR / unique_filename
+        
+        # Save file
+        with open(file_path, "wb") as f:
+            f.write(content)
+        
+        # Create public URL
+        video_url = f"{APP_URL}/api/videos/{unique_filename}"
+        
+        # Update room videos array
+        await db.conference_rooms.update_one(
+            {"id": room_id},
+            {"$push": {"videos": video_url}}
+        )
+        
+        return {"success": True, "video_url": video_url}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to upload video: {str(e)}")
+
+# Serve uploaded videos
+@api_router.get("/videos/{filename}")
+async def get_video(filename: str):
+    file_path = VIDEO_DIR / filename
+    if file_path.exists():
+        return FileResponse(file_path)
+    raise HTTPException(status_code=404, detail="Video not found")
+
+# Delete video endpoints
+@api_router.delete("/hotels/{hotel_id}/videos/{video_url}")
+async def delete_hotel_video(
+    hotel_id: str,
+    video_url: str,
+    current_user: dict = Depends(get_current_user)
+):
+    hotel = await db.hotels.find_one({"id": hotel_id})
+    if not hotel:
+        raise HTTPException(status_code=404, detail="Hotel not found")
+    
+    if current_user["role"] == UserRole.HOTEL_MANAGER and hotel["manager_id"] != current_user["id"]:
+        raise HTTPException(status_code=403, detail="You can only manage your own hotel's videos")
+    
+    # Extract filename from URL
+    filename = video_url.split("/")[-1]
+    file_path = VIDEO_DIR / filename
+    
+    # Delete file if exists
+    if file_path.exists():
+        file_path.unlink()
+    
+    # Remove from database
+    await db.hotels.update_one(
+        {"id": hotel_id},
+        {"$pull": {"videos": video_url}}
+    )
+    
+    return {"success": True, "message": "Video deleted successfully"}
+
+@api_router.delete("/rooms/{room_id}/videos/{video_url}")
+async def delete_room_video(
+    room_id: str,
+    video_url: str,
+    current_user: dict = Depends(get_current_user)
+):
+    room = await db.conference_rooms.find_one({"id": room_id})
+    if not room:
+        raise HTTPException(status_code=404, detail="Room not found")
+    
+    hotel = await db.hotels.find_one({"id": room["hotel_id"]})
+    if current_user["role"] == UserRole.HOTEL_MANAGER and hotel["manager_id"] != current_user["id"]:
+        raise HTTPException(status_code=403, detail="You can only manage your own hotel's room videos")
+    
+    # Extract filename from URL
+    filename = video_url.split("/")[-1]
+    file_path = VIDEO_DIR / filename
+    
+    # Delete file if exists
+    if file_path.exists():
+        file_path.unlink()
+    
+    # Remove from database
+    await db.conference_rooms.update_one(
+        {"id": room_id},
+        {"$pull": {"videos": video_url}}
+    )
+    
+    return {"success": True, "message": "Video deleted successfully"}
+
 # Review & Rating Routes
 @api_router.post("/reviews", response_model=ReviewResponse)
 async def create_review(review_data: ReviewCreate, current_user: dict = Depends(get_current_user)):
