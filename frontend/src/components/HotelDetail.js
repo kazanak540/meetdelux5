@@ -195,6 +195,51 @@ const HotelDetail = () => {
                   </p>
                 </div>
 
+                {/* Photo Gallery */}
+                {hotel.images && hotel.images.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-3">Otel Fotoğrafları</h3>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                      {hotel.images.map((image, idx) => (
+                        <div key={idx} className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+                          <img 
+                            src={image} 
+                            alt={`${hotel.name} - Görsel ${idx + 1}`}
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
+                            onClick={() => window.open(image, '_blank')}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.src = 'https://via.placeholder.com/400x300?text=Resim+Yüklenemedi';
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Video Gallery */}
+                {hotel.videos && hotel.videos.length > 0 && (
+                  <div className="mb-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-3">Tanıtım Videoları</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {hotel.videos.map((video, idx) => (
+                        <div key={idx} className="aspect-video rounded-lg overflow-hidden bg-gray-900">
+                          <video 
+                            controls 
+                            className="w-full h-full object-cover"
+                            preload="metadata"
+                          >
+                            <source src={video} type="video/mp4" />
+                            <source src={video} type="video/webm" />
+                            Tarayıcınız video etiketini desteklemiyor.
+                          </video>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {/* Facilities */}
                 <div>
                   <h3 className="text-lg font-medium text-gray-900 mb-4">Otel Olanakları</h3>
