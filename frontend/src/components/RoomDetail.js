@@ -438,6 +438,15 @@ const RoomDetail = () => {
           </div>
         </div>
       </div>
+
+      {/* Image Gallery Modal */}
+      <ImageGalleryModal
+        images={room?.images || []}
+        initialIndex={selectedImageIndex}
+        isOpen={galleryOpen}
+        onClose={() => setGalleryOpen(false)}
+        title={room?.name}
+      />
     </div>
   );
 };
