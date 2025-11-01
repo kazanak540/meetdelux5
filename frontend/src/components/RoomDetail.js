@@ -36,6 +36,14 @@ const RoomDetail = () => {
       // Fetch hotel details
       const hotelResponse = await axios.get(`${API}/hotels/${roomData.hotel_id}`);
       setHotel(hotelResponse.data);
+      
+      // Fetch extra services
+      try {
+        const servicesResponse = await axios.get(`${API}/hotels/${roomData.hotel_id}/services`);
+        setExtraServices(servicesResponse.data);
+      } catch (err) {
+        console.log('No extra services available');
+      }
     } catch (error) {
       console.error('Room details fetch error:', error);
       toast.error('Salon bilgileri yüklenirken hata oluştu');
