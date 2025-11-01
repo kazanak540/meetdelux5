@@ -372,6 +372,80 @@ const RoomDetail = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Extra Services Card */}
+            {extraServices && extraServices.length > 0 && (
+              <Card>
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Ekstra Hizmetler</h3>
+                  <div className="space-y-4">
+                    {extraServices.map((service) => (
+                      <div key={service.id} className="border rounded-lg p-4 hover:border-indigo-300 transition-colors">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <div className="text-indigo-600">
+                              {getCategoryIcon(service.category)}
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">{service.name}</p>
+                              <p className="text-sm text-gray-500">
+                                {formatPrice(service.price, service.currency)} / {
+                                  service.unit === 'person' ? 'Kişi' :
+                                  service.unit === 'hour' ? 'Saat' :
+                                  service.unit === 'day' ? 'Gün' :
+                                  service.unit === 'package' ? 'Paket' : 'Adet'
+                                }
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                        {service.description && (
+                          <p className="text-sm text-gray-600 mb-3">{service.description}</p>
+                        )}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
+                            <button
+                              onClick={() => handleServiceQuantityChange(service.id, (selectedServices[service.id] || 0) - 1)}
+                              className="p-1 rounded-full hover:bg-gray-200 disabled:opacity-50"
+                              disabled={!selectedServices[service.id]}
+                            >
+                              <Minus className="h-4 w-4" />
+                            </button>
+                            <span className="w-8 text-center font-medium">
+                              {selectedServices[service.id] || 0}
+                            </span>
+                            <button
+                              onClick={() => handleServiceQuantityChange(service.id, (selectedServices[service.id] || 0) + 1)}
+                              className="p-1 rounded-full hover:bg-gray-200"
+                            >
+                              <Plus className="h-4 w-4" />
+                            </button>
+                          </div>
+                          {selectedServices[service.id] > 0 && (
+                            <div className="flex items-center text-green-600">
+                              <Check className="h-4 w-4 mr-1" />
+                              <span className="text-sm font-medium">
+                                {formatPrice(service.price * selectedServices[service.id], service.currency)}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {Object.keys(selectedServices).length > 0 && (
+                    <div className="mt-4 pt-4 border-t">
+                      <div className="flex justify-between items-center">
+                        <span className="font-semibold text-gray-900">Ekstra Hizmetler Toplamı:</span>
+                        <span className="text-lg font-bold text-indigo-600">
+                          {formatPrice(calculateTotalExtras(), currency)}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
             {/* Booking Card */}
             <Card className="border-2 border-indigo-200">
               <CardContent className="p-6">
