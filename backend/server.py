@@ -1726,14 +1726,16 @@ import shutil
 from pathlib import Path
 
 # Create upload directories
-UPLOAD_DIR = Path("/home/kenanadm/uploads")
+UPLOAD_DIR = Path("/app/uploads")
 HOTEL_IMAGES_DIR = UPLOAD_DIR / "hotels"
 ROOM_IMAGES_DIR = UPLOAD_DIR / "rooms"
+VIDEO_DIR = UPLOAD_DIR / "videos"
 
 # Create directories if they don't exist
 UPLOAD_DIR.mkdir(exist_ok=True)
 HOTEL_IMAGES_DIR.mkdir(exist_ok=True)
 ROOM_IMAGES_DIR.mkdir(exist_ok=True)
+VIDEO_DIR.mkdir(exist_ok=True)
 
 @api_router.post("/hotels/{hotel_id}/upload-image")
 async def upload_hotel_image(
