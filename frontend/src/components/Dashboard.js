@@ -829,6 +829,22 @@ const Dashboard = () => {
           onSuccess={handleRoomCreated}
           defaultRoomType="ballroom"
         />
+
+        {/* Extra Service Modal */}
+        {selectedHotelForService && (
+          <CreateExtraServiceModal
+            isOpen={showCreateServiceModal}
+            onClose={() => {
+              setShowCreateServiceModal(false);
+              setSelectedHotelForService(null);
+            }}
+            hotelId={selectedHotelForService.id}
+            onSuccess={async () => {
+              const userHotels = hotels.filter(hotel => hotel.manager_id === user.id);
+              await fetchExtraServices(userHotels);
+            }}
+          />
+        )}
       </div>
     </div>
   );
