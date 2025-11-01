@@ -341,35 +341,52 @@ const HotelDetail = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Contact Info */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">İletişim Bilgileri</h3>
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600">{hotel.phone}</span>
+            {/* Contact Info - Only for Admins and Hotel Owners */}
+            {isAdmin && (
+              <Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900">İletişim Bilgileri</h3>
+                    <span className="text-xs bg-amber-100 text-amber-800 px-2 py-1 rounded-full font-medium">
+                      Sadece Yönetici
+                    </span>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-gray-400" />
-                    <span className="text-gray-600">{hotel.email}</span>
-                  </div>
-                  {hotel.website && (
+                  <div className="space-y-3">
                     <div className="flex items-center space-x-3">
-                      <Globe className="h-5 w-5 text-gray-400" />
-                      <a 
-                        href={hotel.website} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-indigo-600 hover:text-indigo-700"
-                      >
-                        Web Sitesi
+                      <Phone className="h-5 w-5 text-gray-400" />
+                      <a href={`tel:${hotel.phone}`} className="text-gray-600 hover:text-indigo-600">
+                        {hotel.phone}
                       </a>
                     </div>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
+                    <div className="flex items-center space-x-3">
+                      <Mail className="h-5 w-5 text-gray-400" />
+                      <a href={`mailto:${hotel.email}`} className="text-gray-600 hover:text-indigo-600">
+                        {hotel.email}
+                      </a>
+                    </div>
+                    {hotel.website && (
+                      <div className="flex items-center space-x-3">
+                        <Globe className="h-5 w-5 text-gray-400" />
+                        <a 
+                          href={hotel.website} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="text-indigo-600 hover:text-indigo-700"
+                        >
+                          Web Sitesi
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <p className="text-xs text-gray-500">
+                      <strong>Not:</strong> Bu bilgiler sadece yöneticiler tarafından görülebilir. 
+                      Müşteriler bu bilgileri göremez.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Quick Actions */}
             <Card>
